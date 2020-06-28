@@ -403,7 +403,7 @@ final class HaloChannel implements AutoCloseable {
             channel.configureBlocking(false);
             channel.setOption(StandardSocketOptions.SO_REUSEADDR, true);
             channel.setOption(StandardSocketOptions.IP_MULTICAST_TTL, 255);
-            channel.bind(new InetSocketAddress(MDNS_PORT));
+            channel.bind(new InetSocketAddress(family == StandardProtocolFamily.INET ? InetAddress.getByName("0.0.0.0") : null, MDNS_PORT));
             return Optional.of(channel);
         } catch (final UnsupportedOperationException e) {
             LOGGER
